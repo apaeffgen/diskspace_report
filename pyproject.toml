@@ -1,0 +1,27 @@
+[build-system]
+requires = [
+“setuptools>=42”,
+“wheel”
+]
+build-backend = “setuptools.build_meta”
+
+
+[project]
+name = "Diskspace Report"
+version = "0.1.1"
+authors = [
+  { name="Andreas Paeffgen", email="author@example.com" },
+]
+description = "A script that writes diskspace usage to a csv file. The report can be emailed as well"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/apaeffgen/diskspace_report"
+Issues = "https://github.com/apaeffgen/diskspace_report/issues"
+
