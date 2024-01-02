@@ -11,7 +11,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 from email.mime.text import MIMEText
 
-from diskspace_report import config
+import config
 
 
 # Main function that controls what should be done

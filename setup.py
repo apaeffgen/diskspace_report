@@ -2,8 +2,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='Diskspace_Report',
-    version='0.1.1',
+    name='Diskspace-Report',
+    version='0.1.3',
     author='Andreas Paeffgen',
     author_email='your.email@example.com',
     description='Check the available disk space and write it to a csv file. Eventually email the csv file.',
