@@ -1,10 +1,12 @@
 [project]
 name = "Diskspace Report"
-version = "0.1.3"
+version = "0.1.4"
 authors = [
   { name="Andreas Paeffgen", email="author@example.com" },
 ]
 description = "A script that writes diskspace usage to a csv file. The report can be emailed as well"
+long_description='Check the available disk space and write it to a csv file. Eventually email the csv file.'
+long_description_content_type="text/markdown"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
