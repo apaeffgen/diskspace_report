@@ -6,7 +6,7 @@ with open("README.md", "r") as f:
 
 setup(
     name='Diskspace-Report',
-    version='0.1.8',
+    version='0.1.9',
     author='Andreas Paeffgen',
     author_email='your.email@example.com',
     description='Check the available disk space and write it to a csv file. Eventually email the csv file.',
@@ -24,5 +24,5 @@ setup(
             "diskspace_report = diskspace_report:main",
         ],
     },
-    python_requires='>=3.8',
+    python_requires='>=3.6',
 )
