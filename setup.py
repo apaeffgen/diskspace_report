@@ -28,7 +28,7 @@ setup(
     ],
     entry_points={
         "console_scripts" : [
-            "diskspace_report = diskspace_report:diskspace_report",
+            "diskspace_report = diskspace_report:main",
         ],
     },
     python_requires='>=3.6',
