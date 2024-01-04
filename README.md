@@ -14,7 +14,7 @@ pip install diskspace-report
 1. Download and unpack the source-code (whereever you want)
 2. Make sure python3 is installed
 3. Install the requirements:
-```pip install -r requirements. txt ```
+```pip install -r requirements.txt ```
 
 ## Supported Platforms (tested)
 

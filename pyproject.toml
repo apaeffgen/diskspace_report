@@ -1,6 +1,6 @@
 [project]
 name = "Diskspace Report"
-version = "0.1.5b"
+version = "0.2.2"
 authors = [
   { name="Andreas Paeffgen", email="author@example.com" },
 ]
@@ -8,7 +8,7 @@ description = "A script that writes diskspace usage to a csv file. The report ca
 long_description='Check the available disk space and write it to a csv file. Eventually email the csv file.'
 long_description_content_type="text/markdown"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.6"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -23,7 +23,7 @@ Issues = "https://github.com/apaeffgen/diskspace_report/issues"
 
 [build-system]
 requires = [
-“setuptools>=42”,
+“setuptools>=69”,
 “wheel”
 ]
 build-backend = “setuptools.build_meta”

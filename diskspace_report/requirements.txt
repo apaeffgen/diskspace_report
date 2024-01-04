@@ -1,0 +1,11 @@
+pylocale>=0.0.1
+email
+wheel
+setup
+
+#### Included in STD-Library
+#os
+#time
+#shutil
+#csv
+#smtplib
