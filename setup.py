@@ -20,7 +20,6 @@ setup(
     packages=find_packages(),
     install_requires=[
         'pylocale>=0.0.1',
-        'config',
     ],
     classifiers=[
         'Programming Language :: Python :: 3',

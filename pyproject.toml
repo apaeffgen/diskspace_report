@@ -11,7 +11,7 @@ readme = "README.md"
 requires-python = ">=3.6"
 
 [tool.setuptools]
-packages = ["diskspace_report"]
+packages = ["diskspace_report", "config_report"]
 
 classifiers = [
     "Programming Language :: Python :: 3",
