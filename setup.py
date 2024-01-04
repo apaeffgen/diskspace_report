@@ -1,5 +1,9 @@
 #!/usr/bin/python3
+import os
 from setuptools import setup, find_packages
+
+root = os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir))
+os.chdir(root)
 
 with open("README.md", "r") as f:
     description = f.read()
@@ -15,7 +19,8 @@ setup(
     url='https://github.com/apaeffgen/diskspace_report',
     packages=find_packages(),
     install_requires=[
-        'pylocale>=0.0.1'
+        'pylocale>=0.0.1',
+        'config',
     ],
     classifiers=[
         'Programming Language :: Python :: 3',

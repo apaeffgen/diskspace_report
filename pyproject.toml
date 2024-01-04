@@ -9,6 +9,10 @@ long_description='Check the available disk space and write it to a csv file. Eve
 long_description_content_type="text/markdown"
 readme = "README.md"
 requires-python = ">=3.6"
+
+[tool.setuptools]
+packages = ["diskspace_report"]
+
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
