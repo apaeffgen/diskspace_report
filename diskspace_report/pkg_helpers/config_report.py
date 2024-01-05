@@ -2,7 +2,7 @@
 import locale, os, time
 ############ Start of Configuration ######################
 ##########################################################
-version = "0.2.3"
+version = "0.2.5"
 # Parameters to configure the output
 booL_print = True
 bool_export = True
@@ -23,6 +23,8 @@ MY_USER = 'Username'
 MY_PASSWORD = 'Password'
 SMTP_SERVER = 'Mailserver-Hostname'
 SMTP_PORT = 587
+
+
 
 # Report Parameters
 SUBJECT = 'Disk Space Report'

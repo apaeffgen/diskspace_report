@@ -4,15 +4,29 @@
 import locale
 import shutil
 from csv import DictWriter
-import os
+import sys, os
 import smtplib
+import logging
+
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 from email.mime.text import MIMEText
 
-import config_report
+def error_log():
+	logging.basicConfig(filename='diskspace_report.log', level=logging.DEBUG,
+						format='%(asctime)s %(levelname)s %(name)s %(message)s')
+	logger=logging.getLogger(__name__)
+	return logger
 
+try:
+	from  diskspace_report.pkg_helpers import config_report
+except ImportError:
+	error_log()
+try:
+	from pkg_helpers import config_report
+except ImportError:
+	error_log()
 
 # Main function that controls what should be done
 def main():
@@ -105,4 +119,5 @@ def mail_results():
 	smtpObj.quit()
 
 # Start the  programm
-main()
+if __name__ == "__main__":
+	main()

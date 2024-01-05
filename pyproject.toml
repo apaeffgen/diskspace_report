@@ -1,6 +1,6 @@
 [project]
 name = "Diskspace Report"
-version = "0.2.3"
+version = "0.2.5"
 authors = [
   { name="Andreas Paeffgen", email="author@example.com" },
 ]

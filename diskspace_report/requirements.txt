@@ -1,5 +1,6 @@
 pylocale>=0.0.1
-email
+email>=3.0.1
+logging
 wheel
 setup
 
