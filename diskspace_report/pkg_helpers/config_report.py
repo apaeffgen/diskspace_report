@@ -2,7 +2,7 @@
 import locale, os, time
 ############ Start of Configuration ######################
 ##########################################################
-version = "0.2.5"
+version = "0.2.7"
 # Parameters to configure the output
 booL_print = True
 bool_export = True

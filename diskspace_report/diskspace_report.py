@@ -3,10 +3,13 @@
 # Import libraries that are needed
 import locale
 import shutil
+import sysconfig
 from csv import DictWriter
 import sys, os
 import smtplib
 import logging
+import click
+import subprocess
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
@@ -28,21 +31,61 @@ try:
 except ImportError:
 	error_log()
 
-# Main function that controls what should be done
-def main():
-	total_space, used_space,percent_usedspace, free_space, percent_freespace = calculate_space()
+# Main function that controls what should be done and the click parameter of the command line
+@click.command()
+@click.option("--showinfo", is_flag=True, help="Show the Package Information and some path information")
+@click.option("--showconfig", is_flag=True, help="Show all the parameters configured in the configuration file")
+@click.option("--run", default=True, help="Run the script. Defaults to True")
+def main(run,showinfo,showconfig):
+	'''
+	Diskspace_Report:
+	A tool to analyse and print / email the available diskspace to a csv file
+	'''
+
+
+	if (run is True) and (showinfo is True) and (showconfig is True):
+		print_path()
+		show_config()
+		exit()
+
+	elif (run is True) and (showconfig is True):
+		show_config()
+		exit()
+
+	elif (run is True) and (showinfo is True):
+		print_path()
+		exit()
+	else:
+		configuration()
+
+
+# Config the wanted output as of the configuration
+def configuration():
+	total_space, used_space, percent_usedspace, free_space, percent_freespace = calculate_space()
 
 	# Check the printing parameter
 	if config_report.booL_print == True:
-		show_values(total_space, used_space,percent_usedspace, free_space, percent_freespace)
+		show_values(total_space, used_space, percent_usedspace, free_space, percent_freespace)
 
 	# Check the export parameter
 	if config_report.bool_export == True:
-		write_csv(total_space, used_space,percent_usedspace, free_space, percent_freespace)
+		write_csv(total_space, used_space, percent_usedspace, free_space, percent_freespace)
 
 	# Check the email parameter
 	if config_report.bool_email == True:
 		mail_results()
+
+# Show the configuration
+def show_config():
+	click.echo("A list of the actual parameters:")
+	print(os.linesep)
+	click.echo("Filename / Path: " + config_report.csvfile)
+	click.echo("Print-Parameter: " + str(config_report.booL_print))
+	click.echo("Report-Parameter: " + str(config_report.bool_export))
+	click.echo("Email-Parameter: " + str(config_report.bool_email))
+
+	print(os.linesep)
+
 
 # Calculate the values of the disk (free, used, total + percentage)
 def calculate_space():
@@ -56,7 +99,7 @@ def calculate_space():
 		
 	return total_space, used_space, percent_usedspace, free_space, percent_freespace
 
-# Set the number format for the exported values. Settings in the header
+# Set the number format for the exported values. Settings in the config file
 def int_num(number, digits=2):
     if number is None:
         return ''
@@ -117,6 +160,19 @@ def mail_results():
 	smtpObj.login(config_report.MY_USER, config_report.MY_PASSWORD)
 	smtpObj.sendmail(config_report.sender, config_report.recipient, msg.as_string())
 	smtpObj.quit()
+
+
+#@click.command()
+#@click.option("--show-path", promt="Your actual Path", help="Debug your path information")
+def print_path():
+	print("Package-Information")
+	subprocess.run(["pip", "show", "diskspace_report"])
+	print(os.linesep)
+	print("Attached some path information: ")
+	print(sysconfig.get_path("purelib"))
+	print(sys.path)
+	print(os.linesep)
+
 
 # Start the  programm
 if __name__ == "__main__":

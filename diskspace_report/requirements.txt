@@ -1,8 +1,9 @@
 pylocale>=0.0.1
-email>=3.0.1
-logging
-wheel
-setup
+click>=7.1.2
+#logging>=0.4.9.6
+#email>=3.0.1
+#wheel
+#setup
 
 #### Included in STD-Library
 #os

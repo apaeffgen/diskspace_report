@@ -7,7 +7,12 @@ The report csv-file can be emailed via your email account. The file can be set u
 ## Installation
 ### Via PyPi.org
 
-pip install diskspace-report
+`pip install diskspace_report`
+
+`pip show diskspace_report`
+
+Afterwords, when no error occured, diskspace_report binary is in your path and you can use it by invoking:
+`diskspace_report --help`
 
 ### Via Source-Code on Github
 
@@ -24,9 +29,9 @@ pip install diskspace-report
 
 ## Configuration
 
-1. There is a config.py file to adjust the settings.
-2. Email ist turned off by default
-3. You have to fill all required fields for the email to work and to switch on email
+1. There is a config.py file to adjust the settings. You will find the location with `diskspace_report --showinfo`
+2. Email ist turned off by default. Parameters can be shown with `diskspace_report --showconfig`
+3. You have to fill all required fields for the email to work and to switch on email report
 
 ### Testing the funcitonality
 
@@ -35,4 +40,4 @@ pip install diskspace-report
 
 ## Installing as a service
 
-Coming soon
+Will follow in the next upcoming versions.
