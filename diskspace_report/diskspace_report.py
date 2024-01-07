@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 # Import libraries that are needed
+import platform
 import locale
 import shutil
 import sysconfig
@@ -31,32 +32,47 @@ try:
 except ImportError:
 	error_log()
 
+def active_platform():
+	running_platform = platform.system()
+	return running_platform
+
 # Main function that controls what should be done and the click parameter of the command line
 @click.command()
+@click.option("--editconfig", is_flag=True, help="Opens the config file for editing")
 @click.option("--showinfo", is_flag=True, help="Show the Package Information and some path information")
+@click.option("--showversion", is_flag=True, help="Show the version number of the script")
 @click.option("--showconfig", is_flag=True, help="Show all the parameters configured in the configuration file")
 @click.option("--run", default=True, help="Run the script. Defaults to True")
-def main(run,showinfo,showconfig):
+def main(run,editconfig,showversion,showinfo,showconfig):
 	'''
 	Diskspace_Report:
 	A tool to analyse and print / email the available diskspace to a csv file
 	'''
 
-
-	if (run is True) and (showinfo is True) and (showconfig is True):
-		print_path()
-		show_config()
-		exit()
-
-	elif (run is True) and (showconfig is True):
+	if (run is True) and (showconfig is True):
 		show_config()
 		exit()
 
 	elif (run is True) and (showinfo is True):
-		print_path()
+		show_info()
 		exit()
-	else:
+	elif (run is True) and (editconfig is True):
+		running_platform = active_platform()
+		edit_config(running_platform)
+
+	elif (run is True) and (showversion is True):
+		click.echo("Diskspace-Report Version: " + config_report.version)
+		exit()
+
+	elif (run is True):
 		configuration()
+	else:
+		click.echo("Please make a valid choise or use --help")
+		exit()
+
+# Check on which platform runs the script
+
+
 
 
 # Config the wanted output as of the configuration
@@ -77,14 +93,24 @@ def configuration():
 
 # Show the configuration
 def show_config():
-	click.echo("A list of the actual parameters:")
-	print(os.linesep)
-	click.echo("Filename / Path: " + config_report.csvfile)
+	click.echo("Parameters of diskspace_report:")
+	click.echo("__________________________")
+	click.echo("Main Parameters:")
 	click.echo("Print-Parameter: " + str(config_report.booL_print))
 	click.echo("Report-Parameter: " + str(config_report.bool_export))
 	click.echo("Email-Parameter: " + str(config_report.bool_email))
-
-	print(os.linesep)
+	click.echo("__________________________")
+	click.echo("Report-Prameters:")
+	click.echo("Filename / Path: " + config_report.csvfile)
+	click.echo("Hostname: " + config_report.hostname)
+	click.echo("__________________________")
+	click.echo("Email-Parameters:")
+	click.echo("Sender: " + str(config_report.sender))
+	click.echo("Recipient: " + str(config_report.recipient))
+	click.echo("MyUser: " + str(config_report.MY_USER))
+	click.echo("MyPassword: xxxxxxxxxxx")
+	click.echo("SMTP-Server: " + str(config_report.SMTP_SERVER))
+	click.echo("SMTP_Port: " + str(config_report.SMTP_PORT))
 
 
 # Calculate the values of the disk (free, used, total + percentage)
@@ -100,7 +126,7 @@ def calculate_space():
 	return total_space, used_space, percent_usedspace, free_space, percent_freespace
 
 # Set the number format for the exported values. Settings in the config file
-def int_num(number, digits=2):
+def set_locale(number, digits=2):
     if number is None:
         return ''
     if not isinstance(number, int) and not isinstance(number, float):
@@ -113,9 +139,9 @@ def int_num(number, digits=2):
 def write_csv(total_space, used_space, percent_usedspace, free_space,  percent_freespace):
 	# Format the sequence of the rows in the exported csv-file
 	field_names = ['Date','Space Abs (GB)','Space Free (GB)','Percent Free', 'Space Used (GB)', 'Percent Used' ]
-	dict = {'Date': config_report.actualtime, 'Space Abs (GB)': int_num(total_space), 'Space Free (GB)': int_num(free_space),
-			'Percent Free': int_num(percent_freespace), 'Space Used (GB)': int_num(used_space),
-			'Percent Used': int_num(percent_usedspace)}
+	dict = {'Date': config_report.actualtime, 'Space Abs (GB)': set_locale(total_space), 'Space Free (GB)': set_locale(free_space),
+			'Percent Free': set_locale(percent_freespace), 'Space Used (GB)': set_locale(used_space),
+			'Percent Used': set_locale(percent_usedspace)}
 	
 	# Check, if the file exists. Only write the header once
 	if not os.path.exists(config_report.csvfile):
@@ -162,16 +188,28 @@ def mail_results():
 	smtpObj.quit()
 
 
-#@click.command()
-#@click.option("--show-path", promt="Your actual Path", help="Debug your path information")
-def print_path():
-	print("Package-Information")
+def show_info():
+	print("Package-Information of diskspace_report")
+	click.echo("__________________________")
 	subprocess.run(["pip", "show", "diskspace_report"])
-	print(os.linesep)
-	print("Attached some path information: ")
+	click.echo("__________________________")
+	print("Attached some general path information: ")
 	print(sysconfig.get_path("purelib"))
 	print(sys.path)
-	print(os.linesep)
+	click.echo("__________________________")
+
+def edit_config(running_platform):
+	config_file = os.path.join(os.path.dirname(__file__), 'pkg_helpers/config_report.py')
+
+	if (running_platform == "Linux") or (running_platform == "Darwin"):
+		print("Your config file path is: ")
+		print(config_file)
+		subprocess.run(["vim", config_file])
+	if (running_platform == "Windows"):
+		print("Your config file path is: ")
+		print(config_file)
+		subprocess.run(["notepad", config_file])
+
 
 
 # Start the  programm
