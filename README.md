@@ -41,19 +41,20 @@ Afterwords, when no error occurred, diskspace_report binary is in your path and 
 3. Afterwords you can add it as a service and run it on a automated basis
 
 ### Menu functionality
-
+```
 Usage: diskspace_report [OPTIONS]
 
   Diskspace_Report: A tool to analyse and print / email the available
   diskspace to a csv file
 
 Options:
-  --editconfig   Opens the config file for editing
-  --showinfo     Show the Package Information and some path information
-  --showversion  Show the version number of the script
-  --showconfig   Show all the parameters configured in the configuration file
-  --run BOOLEAN  Run the script. Defaults to True
-  --help         Show this message and exit.
 
+--editconfig   Opens the config file for editing
+--showinfo     Show the Package Information and some path information
+--showversion  Show the version number of the script
+--showconfig   Show all the parameters configured in the configuration file
+--run BOOLEAN  Run the script. Defaults to True
+--help         Show this message and exit.
+```
 
 
