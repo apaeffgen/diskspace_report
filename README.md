@@ -51,7 +51,7 @@ Options:
 
 --editconfig   Opens the config file for editing
 --showinfo     Show the Package Information and some path information
---showversion  Show the version number of the script
+--version      Show the version number of the script
 --showconfig   Show all the parameters configured in the configuration file
 --run BOOLEAN  Run the script. Defaults to True
 --help         Show this message and exit.

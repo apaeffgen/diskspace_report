@@ -40,10 +40,10 @@ def active_platform():
 @click.command()
 @click.option("--editconfig", is_flag=True, help="Opens the config file for editing")
 @click.option("--showinfo", is_flag=True, help="Show the Package Information and some path information")
-@click.option("--showversion", is_flag=True, help="Show the version number of the script")
+@click.option("--version", is_flag=True, help="Show the version number of the script")
 @click.option("--showconfig", is_flag=True, help="Show all the parameters configured in the configuration file")
 @click.option("--run", default=True, help="Run the script. Defaults to True")
-def main(run,editconfig,showversion,showinfo,showconfig):
+def main(run,editconfig,version,showinfo,showconfig):
 	'''
 	Diskspace_Report:
 	A tool to analyse and print / email the available diskspace to a csv file
@@ -60,7 +60,7 @@ def main(run,editconfig,showversion,showinfo,showconfig):
 		running_platform = active_platform()
 		edit_config(running_platform)
 
-	elif (run is True) and (showversion is True):
+	elif (run is True) and (version is True):
 		click.echo("Diskspace-Report Version: " + config_report.version)
 		exit()
 
