@@ -2,7 +2,7 @@
 import locale, os, time
 ############ Start of Configuration ######################
 ##########################################################
-version = "0.3.0"
+version = "0.3.1"
 # Parameters to configure the output
 booL_print = True
 bool_export = True
@@ -10,6 +10,7 @@ bool_email = False
 
 # Control the path, filename and host
 csvfile = "Diskusage_list.csv"
+logfile = "Diskusage_log.txt"
 hostname = "Macbook-Air"
 
 # Format of the time and number format

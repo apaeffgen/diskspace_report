@@ -10,7 +10,7 @@ with open("README.md", "r") as f:
 
 setup(
     name='diskspace_report',
-    version='0.3.0',
+    version='0.3.1',
     author='Andreas Paeffgen',
     author_email='opensource@software-geeks.de',
     description='Check the available disk space and write it to a csv file. Eventually email the csv file.',
@@ -18,7 +18,7 @@ setup(
     long_description_content_type="text/markdown",
     url='https://github.com/apaeffgen/diskspace_report',
     packages=find_packages(),
-    license="Apache License 2.0",
+    license="MIT",
     install_requires=[
         'pylocale>=0.0.1',
         'click>=7.1.2',

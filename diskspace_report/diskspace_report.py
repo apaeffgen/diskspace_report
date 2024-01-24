@@ -17,20 +17,23 @@ from email.mime.base import MIMEBase
 from email import encoders
 from email.mime.text import MIMEText
 
-def error_log():
-	logging.basicConfig(filename='diskspace_report.log', level=logging.DEBUG,
-						format='%(asctime)s %(levelname)s %(name)s %(message)s')
-	logger=logging.getLogger(__name__)
-	return logger
-
+# Try to import the configfile from different paths
 try:
-	from  diskspace_report.pkg_helpers import config_report
+	from diskspace_report.pkg_helpers import config_report
 except ImportError:
-	error_log()
+	pass
 try:
 	from pkg_helpers import config_report
 except ImportError:
-	error_log()
+	pass
+
+# Catch errors and check platform
+def error_log():
+	from pkg_helpers import config_report
+	logging.basicConfig(filename=config_report.logfile, level=logging.DEBUG,
+						format='%(asctime)s %(levelname)s %(name)s %(message)s')
+	logger=logging.getLogger(__name__)
+	return logger
 
 def active_platform():
 	running_platform = platform.system()
@@ -67,13 +70,8 @@ def main(run,editconfig,version,showinfo,showconfig):
 	elif (run is True):
 		configuration()
 	else:
-		click.echo("Please make a valid choise or use --help")
+		click.echo("Please make a valid choice or use --help")
 		exit()
-
-# Check on which platform runs the script
-
-
-
 
 # Config the wanted output as of the configuration
 def configuration():
@@ -102,6 +100,7 @@ def show_config():
 	click.echo("__________________________")
 	click.echo("Report-Prameters:")
 	click.echo("Filename / Path: " + config_report.csvfile)
+	click.echo("Logfilename / Path: " + config_report.logfile)
 	click.echo("Hostname: " + config_report.hostname)
 	click.echo("__________________________")
 	click.echo("Email-Parameters:")
