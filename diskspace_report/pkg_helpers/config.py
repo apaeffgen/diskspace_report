@@ -2,11 +2,11 @@
 import locale, os, time
 ############ Start of Configuration ######################
 ##########################################################
-version = "0.3.2"
+version = "0.3.3"
 # Parameters to configure the output
 booL_print = True
 bool_export = True
-bool_email = True
+bool_email = False
 
 # Control the path, filename and host
 csvfile = "Diskusage_list.csv"

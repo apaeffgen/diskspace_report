@@ -177,50 +177,43 @@ def write_html():
 
 # Print the calculated values to screen,
 def show_values(total_space, used_space, percent_usedspace,free_space, percent_freespace):
-	Text1 = str("Overview of the last Diskspace - Reports")
-	Text2 = str("Disk Space Report from: " + str(config.actualtime))
-	Text3 = str("Summery of actual day")
-	Text4 = str("Total Space in GB: ")
-	Variable4 = total_space
-	Text4a = str(" / 100 Percent")
-	Text5 = str("Used Space in GB: ")
-	Variable5 = used_space
-	Text5a = str(" / ")
-	Variable5a = percent_usedspace
-	Text5b = str(" Percent")
-	Text6 = str("Free Space in GB: ")
-	Variable6 = free_space
-	Text6a = str(" / ")
-	Variable6a = percent_freespace
-	Text6b = str(" Percent")
+	# Text and Variables to print.
+	Text_ReportTitel = str("Disk Space Report from: " + str(config.actualtime))
+	Text_SummeryDay = str("Summery of actual day")
+	Text_TotalSpace = str("Total Space: " + str(total_space) + " GB / 100 Percent")
+	Text_UsedSpace = str("Used Space: " + str(used_space) + " GB / " + str(percent_usedspace) + " Percent")
+	Text_FreeSpace = str("Free Space: " + str(free_space) + " GB / " + str(percent_freespace) + " Percent")
+	Text_LastOverview = str("Overview of the last Diskspace - Reports")
 
-	global  Report_HTML
-
-	newline_html = "<br>"
+	# Format the Text for Console Output
 	Report_Text = (
-		  Text2 + os.linesep +
-		  Text3 + os.linesep +
-		  Text4 + str(Variable4) + Text4a + os.linesep +
-		  Text5 + str(Variable5) + Text5a + str(Variable5a) + Text5b + os.linesep +
-		  Text6 + str(Variable6) + Text6a + str(Variable6a) + Text6b + os.linesep)
+		  Text_ReportTitel + os.linesep +
+		  Text_SummeryDay + os.linesep +
+		  Text_TotalSpace + os.linesep +
+		  Text_UsedSpace + os.linesep +
+		  Text_FreeSpace + os.linesep)
+
+	# Format the Output for HTML-Email
+	global  Report_HTML
+	newline_html = "<br>"
 
 	Report_HTML = (
-			Text2 + newline_html + newline_html+
-			Text3 + newline_html +
-			Text4 + str(Variable4) + Text4a + newline_html +
-			Text5 + str(Variable5) + Text5a + str(Variable5a) + Text5b + newline_html +
-			Text6 + str(Variable6) + Text6a + str(Variable6a) + Text6b + newline_html + newline_html)
+			Text_ReportTitel + newline_html + newline_html+
+			Text_SummeryDay + newline_html +
+			Text_TotalSpace + newline_html +
+			Text_UsedSpace + newline_html +
+			Text_FreeSpace + newline_html + newline_html)
 
 	if config.booL_print == True:
 
 		print(Report_Text)
-		print(Text1)
-		print_html = write_html()
-		print(print_html)
 
-		write_html()
+		if config.bool_export == True:
+			print(Text_LastOverview)
+			print_html = write_html()
+			print(print_html)
 
-
+			write_html()
 
 # Email the results
 def mail_results():

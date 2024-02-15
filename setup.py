@@ -10,7 +10,7 @@ with open("README.md", "r") as f:
 
 setup(
     name='diskspace_report',
-    version='0.3.2',
+    version='0.3.3',
     author='Andreas Paeffgen',
     author_email='opensource@software-geeks.de',
     description='Check the available disk space and write it to a csv file. Eventually email the csv file.',
