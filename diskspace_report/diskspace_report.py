@@ -172,7 +172,7 @@ def write_html():
 
 		return print_html
 	else:
-		print("No Data at the moment")
+		print("The first run does not contain any report data. Rerun the report again!")
 
 
 # Print the calculated values to screen,
@@ -212,8 +212,6 @@ def show_values(total_space, used_space, percent_usedspace,free_space, percent_f
 			print(Text_LastOverview)
 			print_html = write_html()
 			print(print_html)
-
-			write_html()
 
 # Email the results
 def mail_results():
