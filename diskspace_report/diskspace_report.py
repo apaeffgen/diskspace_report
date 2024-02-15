@@ -83,7 +83,6 @@ def configuration():
 	total_space, used_space, percent_usedspace, free_space, percent_freespace = calculate_space()
 
 	# Check the printing parameter
-
 	show_values(total_space, used_space, percent_usedspace, free_space, percent_freespace)
 
 	# Check the export parameter
