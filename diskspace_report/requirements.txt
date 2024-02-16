@@ -1,9 +1,9 @@
 pylocale>=0.0.1
 click>=7.1.2
 pandas>=1.1.4
-pyarrow>=6.0.1
 lxml>=4.2.3
-#logging>=0.4.9.6
+logging>=0.4.9.6
+#pyarrow>=6.0.1
 #email>=3.0.1
 
 

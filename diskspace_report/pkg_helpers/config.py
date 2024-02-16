@@ -31,7 +31,8 @@ SUBJECT = 'Disk Space Report'
 
 # Body Text as HTML
 body = ('Diskspace Report from: ' + str(hostname) + ' at the date of ' + str(actualtime) + "<br>"
-			+ 'Attached will be the disk usage report as a csv-file, if you configured it in the config file' + "<br>")
+			+ 'Attached will be the disk usage report as a csv-file, '
+			  'if you configured it in the config file' + "<br>")
 
 # Calculation factor to meet the different disk form factors
 disk_factor = (2**29.9)

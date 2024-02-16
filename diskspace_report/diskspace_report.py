@@ -11,7 +11,6 @@ import smtplib
 import logging
 import click
 import subprocess
-import pyarrow
 import pandas as pd
 
 
@@ -47,10 +46,13 @@ def active_platform():
 # Main function that controls what should be done and the click parameter of the command line
 @click.command()
 @click.option("--editconfig", is_flag=True, help="Opens the config file for editing")
-@click.option("--showinfo", is_flag=True, help="Show the Package Information and some path information")
+@click.option("--showinfo", is_flag=True,
+			  help="Show the Package Information and some path information")
 @click.option("--version", is_flag=True, help="Show the version number of the script")
-@click.option("--showconfig", is_flag=True, help="Show all the parameters configured in the configuration file")
+@click.option("--showconfig", is_flag=True,
+			  help="Show all the parameters configured in the configuration file")
 @click.option("--run", default=True, help="Run the script. Defaults to True")
+
 def main(run,editconfig,version,showinfo,showconfig):
 	'''
 	Diskspace_Report:
@@ -130,22 +132,27 @@ def calculate_space():
 
 # Set the number format for the exported values. Settings in the config file
 def set_locale(number, digits=2):
-    if number is None:
-        return ''
-    if not isinstance(number, int) and not isinstance(number, float):
-        return ''
-    else:
-        format = '%.'+str(digits)+'f'
-        return locale.format_string(format, number, 1)
+	if number is None:
+		return ""
+	if not isinstance(number, int) and not isinstance(number, float):
+		return ""
+	else:
+		format = '%.'+str(digits)+'f'
+		return locale.format_string(format, number, 1)
 
 # Export the calculates values to a csv-file. Pathsettings above
-def write_csv(total_space, used_space, percent_usedspace, free_space,  percent_freespace):
+def write_csv(total_space, used_space, percent_usedspace, free_space,
+			  percent_freespace):
 	# Format the sequence of the rows in the exported csv-file
-	field_names = ['Date','Space Abs (GB)','Space Free (GB)','Percent Free', 'Space Used (GB)', 'Percent Used' ]
-	dict = {'Date': config.actualtime, 'Space Abs (GB)': set_locale(total_space), 'Space Free (GB)': set_locale(free_space),
-			'Percent Free': set_locale(percent_freespace), 'Space Used (GB)': set_locale(used_space),
+	field_names = ['Date', 'Space Abs (GB)', 'Space Free (GB)', 'Percent Free',
+				   'Space Used (GB)', 'Percent Used']
+	dict = {'Date': config.actualtime,
+			'Space Abs (GB)': set_locale(total_space),
+			'Space Free (GB)': set_locale(free_space),
+			'Percent Free': set_locale(percent_freespace),
+			'Space Used (GB)': set_locale(used_space),
 			'Percent Used': set_locale(percent_usedspace)}
-	
+
 	# Check, if the file exists. Only write the header once
 	if not os.path.exists(config.csvfile):
 		with open(config.csvfile, 'w') as f_object:
@@ -166,7 +173,8 @@ def write_html():
 
 	if os.path.exists(config.csvfile) is True:
 		csv_file = pd.read_csv(config.csvfile, delimiter=";")
-		csv_file.to_html(config.htmlfile , float_format='%s',  col_space = 20, max_rows=10, index=False, columns= ["Date", "Space Used (GB)", "Space Free (GB)", "Percent Free"])
+		csv_file.to_html(config.htmlfile , float_format='%s',  col_space = 20, max_rows=10, index=False,
+						 columns= ["Date", "Space Used (GB)", "Space Free (GB)", "Percent Free"])
 		print_html = pd.read_html(config.htmlfile, thousands=".")
 
 		return print_html
@@ -178,15 +186,15 @@ def write_html():
 def show_values(total_space, used_space, percent_usedspace,free_space, percent_freespace):
 	# Text and Variables to print.
 	Text_ReportTitel = str("Disk Space Report from: " + str(config.actualtime))
-	Text_SummeryDay = str("Summery of actual day")
+	Text_SummeryDay = str("Summery:")
 	Text_TotalSpace = str("Total Space: " + str(total_space) + " GB / 100 Percent")
 	Text_UsedSpace = str("Used Space: " + str(used_space) + " GB / " + str(percent_usedspace) + " Percent")
 	Text_FreeSpace = str("Free Space: " + str(free_space) + " GB / " + str(percent_freespace) + " Percent")
-	Text_LastOverview = str("Overview of the last Diskspace - Reports")
+	Text_LastOverview = str("Overview of recent values:")
 
 	# Format the Text for Console Output
 	Report_Text = (
-		  Text_ReportTitel + os.linesep +
+		  Text_ReportTitel + os.linesep + os.linesep +
 		  Text_SummeryDay + os.linesep +
 		  Text_TotalSpace + os.linesep +
 		  Text_UsedSpace + os.linesep +
@@ -268,8 +276,6 @@ def edit_config(running_platform):
 		print("Your config file path is: ")
 		print(config_file)
 		subprocess.run(["notepad", config_file])
-
-
 
 # Start the  programm
 if __name__ == "__main__":
